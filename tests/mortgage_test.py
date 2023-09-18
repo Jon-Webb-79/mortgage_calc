@@ -2,7 +2,7 @@
 
 from math import isclose
 
-from mortgage_calc.mortgage import Mortgage
+from mortgage_calc.mortgage import Mortgage, affordable_home_value
 
 # ==========================================================================================
 # ==========================================================================================
@@ -63,6 +63,18 @@ def test_interest_calc():
     home = Mortgage(600000.0, 400000.0, interest=3.15, tax=0.45)
     interest = home.total_interest()
     assert isclose(109410.55, interest, rel_tol=1.0e-3)
+
+
+# ------------------------------------------------------------------------------------------
+
+
+def test_affordable_values():
+    """
+    Test the affordable_home_value method to ensure it provides the same result
+    as the Mortgage class for a back-calculation
+    """
+    val = affordable_home_value(2815.21, 300000.0, months=360, interest=7.145, tax=1.16)
+    assert isclose(600000.0, val, rel_tol=1.0e-3)
 
 
 # ==========================================================================================

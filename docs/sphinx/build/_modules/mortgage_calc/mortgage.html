@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mortgage_calc.mortgage &mdash; mortgage-calc 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../index.html" class="icon icon-home">
+            mortgage-calc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Mortgage.html">mortgage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mortgage-calc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">mortgage_calc.mortgage</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for mortgage_calc.mortgage</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Import necessary packages here</span>
+
+<span class="c1"># import sys</span>
+<span class="c1"># import os</span>
+<span class="c1"># ==========================================================================================</span>
+<span class="c1"># ==========================================================================================</span>
+
+<span class="c1"># File:    mortgage.py</span>
+<span class="c1"># Date:    September 14, 2023</span>
+<span class="c1"># Author:  Jonathan A. Webb</span>
+<span class="c1"># Purpose: This file contains functions and classes that can be used to estimate</span>
+<span class="c1">#          purchasing power when buying a home</span>
+<span class="c1"># ==========================================================================================</span>
+<span class="c1"># ==========================================================================================</span>
+<span class="c1"># Insert Code here</span>
+
+
+<div class="viewcode-block" id="Mortgage">
+<a class="viewcode-back" href="../../Mortgage.html#mortgage_calc.mortgage.Mortgage">[docs]</a>
+<span class="k">class</span> <span class="nc">Mortgage</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param value: The total value of the property to be purchased</span>
+<span class="sd">    :param payment: The total down-payment for the property</span>
+<span class="sd">    :param interest: The annual interest rate for the loan, defaulted to the</span>
+<span class="sd">                     2023 value of 7.145%</span>
+<span class="sd">    :param months: The duration of the loan in units of months.  Defaulted to 360</span>
+<span class="sd">    :param tax: The annual tax rate for the property, defaulted to 1.16%</span>
+<span class="sd">    :param ins_rate: The annual insurance rate for the property, defaulted</span>
+<span class="sd">                     to 0.42%.</span>
+<span class="sd">    :param pmi_rate: The annual rate for private mortgage insurance, defaulted</span>
+<span class="sd">                     to 1.0%</span>
+
+<span class="sd">    This class will determine the monthly payments to be made on a purchased property</span>
+<span class="sd">    over an entire Amoratized mortgage time line.  This class does not account for</span>
+<span class="sd">    HOA fees.  This class has the following public attributes.</span>
+
+<span class="sd">    :ivar value: The value of the property.</span>
+<span class="sd">    :ivar payment: The down payment on the property.</span>
+<span class="sd">    :ivar interest: The interests rate for the loan.</span>
+<span class="sd">    :ivar months: The number of months over which the loan is distributed.</span>
+<span class="sd">    :ivar tax: The rate the property is taxed at.</span>
+<span class="sd">    :ivar ins_rate: The insurance rate for the property.</span>
+<span class="sd">    :ivar pmi_rate: The Private Mortgage Inusrance. Only applicable when the down</span>
+<span class="sd">                    payment is less than 20% of the home value.</span>
+<span class="sd">    :ivar loan_amount: The value of the loan, value - payment.</span>
+<span class="sd">    :ivar monthly_taxes: The tax value paid per month.</span>
+<span class="sd">    :ivar monthly_insurance: The insurance paid monthly.</span>
+<span class="sd">    :ivar monthly_total: The total amount paid on the property per month.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    Example showing how to instantiate a class and how to access and print attributes.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       from mortgage_calc.mortgage import Mortgage</span>
+
+<span class="sd">       # Instantiate class with custom mortage period and interest rate</span>
+<span class="sd">       value = 500000.0  # Propertry value</span>
+<span class="sd">       payment = 300000.0  # down payment on property</span>
+<span class="sd">       rate = 4.5</span>
+<span class="sd">       months = 150.0</span>
+<span class="sd">       property = Mortgage(value, payments, interest=rate, months=months)</span>
+<span class="sd">       # Print all attributes</span>
+<span class="sd">       print(property)</span>
+<span class="sd">       # Print specifc attribute</span>
+<span class="sd">       print(property.monthly_total)</span>
+
+<span class="sd">    .. code-block:: bash</span>
+
+<span class="sd">       Down Payment: $400000.00</span>
+<span class="sd">       Loan Amount: $200000.00</span>
+<span class="sd">       Primary Mortgage: $63986.77</span>
+<span class="sd">       Taxes: $580.00</span>
+<span class="sd">       Insurance: $210.00</span>
+<span class="sd">       Total Monthly Payment: $64776.77</span>
+
+<span class="sd">       64776.77</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                 <span class="n">payment</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                 <span class="n">interest</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">7.145</span><span class="p">,</span>
+                 <span class="n">months</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">360</span><span class="p">,</span>
+                 <span class="n">tax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.16</span><span class="p">,</span>
+                 <span class="n">ins_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.42</span><span class="p">,</span>
+                 <span class="n">pmi_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">payment</span> <span class="o">=</span> <span class="n">payment</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interest</span> <span class="o">=</span> <span class="n">interest</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">months</span> <span class="o">=</span> <span class="n">months</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tax</span> <span class="o">=</span> <span class="n">tax</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ins_rate</span> <span class="o">=</span> <span class="n">ins_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pmi_rate</span> <span class="o">=</span> <span class="n">pmi_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loan_amount</span> <span class="o">=</span> <span class="n">value</span> <span class="o">-</span> <span class="n">payment</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mortgage_payment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_amoratized_payments</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monthly_taxes</span> <span class="o">=</span> <span class="n">value</span> <span class="o">*</span> <span class="p">(</span><span class="n">tax</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">12.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monthly_insurance</span> <span class="o">=</span> <span class="n">value</span> <span class="o">*</span> <span class="p">(</span><span class="n">ins_rate</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">12.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monthly_total</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_monthly_total</span><span class="p">()</span>
+<span class="c1"># ------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Mortgage.total_interest">
+<a class="viewcode-back" href="../../Mortgage.html#mortgage_calc.mortgage.Mortgage.total_interest">[docs]</a>
+    <span class="k">def</span> <span class="nf">total_interest</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the total amount of interest paid over the amortized period.</span>
+
+<span class="sd">        Example</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">           from mortgage_calc.mortgage import Mortgage</span>
+<span class="sd">           home = Mortgage(600000.0, 400000.0, interest=3.15, tax=0.45)</span>
+<span class="sd">           interest = home.total_interest()</span>
+<span class="sd">           print(f&quot;Total Interest: {interest:.2f}&quot;)</span>
+
+<span class="sd">        .. code-block:: bash</span>
+
+<span class="sd">           &gt;&gt; Total Interest: 109410.55</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">total_interest_paid</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">remaining_loan</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loan_amount</span>
+
+        <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">months</span><span class="p">)):</span>
+            <span class="n">monthly_interest_payment</span> <span class="o">=</span> <span class="n">remaining_loan</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interest</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">12.0</span>
+            <span class="n">total_interest_paid</span> <span class="o">+=</span> <span class="n">monthly_interest_payment</span>
+            <span class="n">remaining_loan</span> <span class="o">-=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mortgage_payment</span> <span class="o">-</span> <span class="n">monthly_interest_payment</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">total_interest_paid</span></div>
+
+
+<span class="c1"># ------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Mortgage.total_pmi">
+<a class="viewcode-back" href="../../Mortgage.html#mortgage_calc.mortgage.Mortgage.total_pmi">[docs]</a>
+    <span class="k">def</span> <span class="nf">total_pmi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the total amount paid in Private Mortgage Insurance (PMI).</span>
+<span class="sd">        Assumes PMI is paid until 20% equity is achieved.</span>
+
+<span class="sd">        Example</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">           from mortgage_calc.mortgage import Mortgage</span>
+
+<span class="sd">           home = Mortgage(600000.0, 100000.0, interest=3.15, tax=0.45)</span>
+<span class="sd">           pmi = home.total_pmi()</span>
+<span class="sd">           print(&quot;Total PMI paid: {pmi:.2f}&quot;)</span>
+
+<span class="sd">        .. code-block:: bash</span>
+
+<span class="sd">           &gt;&gt; Total PMI paid: 10203.35</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">total_pmi_paid</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">percent_down</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">payment</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">remaining_loan</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loan_amount</span>
+
+        <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">months</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">percent_down</span> <span class="o">&lt;</span> <span class="mf">0.20</span><span class="p">:</span>
+                <span class="n">monthly_pmi_payment</span> <span class="o">=</span> <span class="n">remaining_loan</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pmi_rate</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">12.0</span>
+                <span class="n">total_pmi_paid</span> <span class="o">+=</span> <span class="n">monthly_pmi_payment</span>
+
+                <span class="c1"># Check if 20% equity has been achieved, and stop PMI payments</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="n">remaining_loan</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mf">0.20</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+            <span class="n">monthly_interest_payment</span> <span class="o">=</span> <span class="n">remaining_loan</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interest</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">12.0</span>
+            <span class="n">remaining_loan</span> <span class="o">-=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mortgage_payment</span> <span class="o">-</span> <span class="n">monthly_interest_payment</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">total_pmi_paid</span></div>
+
+
+<span class="c1"># ==========================================================================================</span>
+<span class="c1"># PRIVE-LIKE METHODS</span>
+
+    <span class="k">def</span> <span class="nf">_amoratized_payments</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method will determine the monthly mortgage payment based on the loan</span>
+<span class="sd">        value, the total valu of the property, and the interest rage</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Convert annual interest rate to monthly rate</span>
+        <span class="n">monthly_interest_rate</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interest</span> <span class="o">/</span> <span class="mf">100.</span><span class="p">)</span> <span class="o">/</span> <span class="mf">12.</span>
+
+        <span class="c1"># Calcuate the monthly mortgage payment using the formula</span>
+        <span class="n">monthly_payment</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loan_amount</span> <span class="o">*</span> <span class="n">monthly_interest_rate</span><span class="p">)</span> <span class="o">/</span> \
+                <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">monthly_interest_rate</span><span class="p">)</span> <span class="o">**</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">months</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">monthly_payment</span>
+<span class="c1"># ------------------------------------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">print_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Property Value: $</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">print_value</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Down Payment: $</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">payment</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">print_value</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Loan Amount: $</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">loan_amount</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">print_value</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Primary Mortgage: $</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mortgage_payment</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">print_value</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Taxes: $</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">monthly_taxes</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">print_value</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Insurance: $</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">monthly_insurance</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">percent_down</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">payment</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">pmi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loan_amount</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pmi_rate</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">12.0</span>
+        <span class="k">if</span> <span class="n">percent_down</span> <span class="o">&lt;</span> <span class="mf">0.20</span><span class="p">:</span>
+            <span class="n">total_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mortgage_payment</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">monthly_taxes</span> <span class="o">+</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">monthly_insurance</span> <span class="o">+</span> <span class="n">pmi</span>
+            <span class="n">print_value</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;PMI: </span><span class="si">{</span><span class="n">pmi</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">total_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mortgage_payment</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">monthly_taxes</span> <span class="o">+</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">monthly_insurance</span>
+
+        <span class="n">print_value</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Total Monthly Payment: $</span><span class="si">{</span><span class="n">total_value</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">print_value</span>
+
+<span class="c1"># ------------------------------------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="nf">_monthly_total</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">percent_down</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">payment</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">pmi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loan_amount</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pmi_rate</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">12.0</span>
+        <span class="k">if</span> <span class="n">percent_down</span> <span class="o">&lt;</span> <span class="mf">0.20</span><span class="p">:</span>
+            <span class="n">total_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mortgage_payment</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">monthly_taxes</span> <span class="o">+</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">monthly_insurance</span> <span class="o">+</span> <span class="n">pmi</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">total_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mortgage_payment</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">monthly_taxes</span> <span class="o">+</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">monthly_insurance</span>
+        <span class="k">return</span> <span class="n">total_value</span></div>
+
+<span class="c1"># ==========================================================================================</span>
+<span class="c1"># ==========================================================================================</span>
+
+
+<span class="k">def</span> <span class="nf">affordable_home_value</span><span class="p">(</span><span class="n">monthly_total</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                          <span class="n">down_payment</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                          <span class="n">interest</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">7.145</span><span class="p">,</span>
+                          <span class="n">months</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">360</span><span class="p">,</span>
+                          <span class="n">tax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.16</span><span class="p">,</span>
+                          <span class="n">ins_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.42</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the total value of a home that can be afforded based on a given</span>
+<span class="sd">    monthly payment and down payment.</span>
+
+<span class="sd">    :param monthly_total: The total monthly payment, including tax and insurance but</span>
+<span class="sd">                          excluding PMI.</span>
+<span class="sd">    :param down_payment: The down payment for the home.</span>
+<span class="sd">    :param interest: The annual interest rate for the loan (defaulted to 7.145%).</span>
+<span class="sd">    :param months: The duration of the loan in months (defaulted to 360).</span>
+<span class="sd">    :param tax: The annual tax rate for the property (defaulted to 1.16%).</span>
+<span class="sd">    :param ins_rate: The annual insurance rate for the property</span>
+<span class="sd">                     (defaulted to 0.42%).</span>
+
+<span class="sd">    :return: The total value of the home that can be afforded.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       from mortgage_calc.Mortgage import affordable_home_value)</span>
+
+<span class="sd">       val = affordable_home_value(2815.21, 300000.0, months=360,</span>
+<span class="sd">                                   interest=7.145, tax=1.16)</span>
+<span class="sd">       print(f&quot;Home Value: {val:.2f}&quot;)</span>
+
+<span class="sd">    .. code-block:: bash</span>
+
+<span class="sd">       &gt;&gt; 600000.00</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tolerance</span> <span class="o">=</span> <span class="mf">1e-4</span>
+
+    <span class="c1"># Set an initial guess for the affordable home value</span>
+    <span class="n">affordable_home_value</span> <span class="o">=</span> <span class="n">down_payment</span> <span class="o">+</span> <span class="p">(</span><span class="n">monthly_total</span> <span class="o">*</span> <span class="n">months</span><span class="p">)</span>
+
+    <span class="c1"># Create an instance of the Mortgage class to access the monthly_total attribute</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">home</span> <span class="o">=</span> <span class="n">Mortgage</span><span class="p">(</span><span class="n">affordable_home_value</span><span class="p">,</span> <span class="n">down_payment</span><span class="p">,</span> <span class="n">interest</span><span class="p">,</span> <span class="n">months</span><span class="p">,</span> <span class="n">tax</span><span class="p">,</span> <span class="n">ins_rate</span><span class="p">)</span>
+        <span class="n">calculated_monthly_total</span> <span class="o">=</span> <span class="n">home</span><span class="o">.</span><span class="n">monthly_total</span>
+
+        <span class="c1"># Check if the calculated monthly total is close enough to the target monthly total</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">calculated_monthly_total</span> <span class="o">-</span> <span class="n">monthly_total</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tolerance</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="c1"># Adjust the affordable home value based on the difference in monthly totals</span>
+        <span class="n">affordable_home_value</span> <span class="o">+=</span> <span class="p">(</span><span class="n">monthly_total</span> <span class="o">-</span> <span class="n">calculated_monthly_total</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">months</span> <span class="o">/</span> <span class="mf">12.0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">affordable_home_value</span>
+
+<span class="c1"># ==========================================================================================</span>
+<span class="c1"># ==========================================================================================</span>
+<span class="c1"># eof</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Jonathan A. Webb.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

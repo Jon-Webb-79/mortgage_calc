@@ -54,4 +54,4 @@ In order to download this repository from github follow these instructions.
 
 Documentation
 #############
-Documentation for this module can be found from the `ReadtheDocs <https://mortgage_calc.readthedocs.io/en/latest/>`_ website.
+Documentation for this module can be found from the `ReadtheDocs <https://mortgage-calc.readthedocs.io/en/latest/>`_ website.
